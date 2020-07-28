@@ -1,8 +1,8 @@
 Gem::Specification.new do |spec|
   spec.name          = "io-nonblock"
   spec.version       = "0.1.0"
-  spec.authors       = ["Hiroshi SHIBATA"]
-  spec.email         = ["hsbt@ruby-lang.org"]
+  spec.authors       = ["Nobu Nakada"]
+  spec.email         = ["nobu@ruby-lang.org"]
 
   spec.summary       = %q{Enables non-blocking mode with IO class}
   spec.description   = %q{Enables non-blocking mode with IO class}
