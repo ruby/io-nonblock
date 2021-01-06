@@ -1,4 +1,8 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in etc.gemspec
 gemspec
+
+gem "bundler"
+gem "rake"
+gem "rake-compiler"
+gem "test-unit"
