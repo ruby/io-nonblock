@@ -57,6 +57,8 @@ set_fcntl_flags(int fd, int f)
 	rb_sys_fail(0);
 }
 
+#ifndef RUBY_IO_NONBLOCK_METHODS
+
 static int
 io_nonblock_set(int fd, int f, int nb)
 {
@@ -133,6 +135,8 @@ rb_io_nonblock_set(VALUE io, VALUE nb)
     return io;
 }
 
+#endif /* RUBY_IO_NONBLOCK_METHODS */
+
 static VALUE
 io_nonblock_restore(VALUE arg)
 {
@@ -179,7 +183,10 @@ rb_io_nonblock_block(int argc, VALUE *argv, VALUE io)
 void
 Init_nonblock(void)
 {
+#ifndef RUBY_IO_NONBLOCK_METHODS
     rb_define_method(rb_cIO, "nonblock?", rb_io_nonblock_p, 0);
     rb_define_method(rb_cIO, "nonblock=", rb_io_nonblock_set, 1);
+#endif
+
     rb_define_method(rb_cIO, "nonblock", rb_io_nonblock_block, -1);
 }
