@@ -132,9 +132,15 @@ io_nonblock_set(int fd, int f, int nb)
 static VALUE
 rb_io_nonblock_set(VALUE self, VALUE value)
 {
-    int descriptor = rb_io_descriptor(self);
-
-    io_nonblock_set(rb_io_descriptor(descriptor), get_fcntl_flags(descriptor), RTEST(value));
+    if (RTEST(value)) {
+        rb_io_t *fptr;
+        GetOpenFile(self, fptr);
+        rb_io_set_nonblock(fptr);
+    }
+    else {
+        int descriptor = rb_io_descriptor(self);
+        io_nonblock_set(rb_io_descriptor(descriptor), get_fcntl_flags(descriptor), RTEST(value));
+    }
 
     return self;
 }
