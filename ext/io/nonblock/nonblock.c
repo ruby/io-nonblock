@@ -139,7 +139,7 @@ rb_io_nonblock_set(VALUE self, VALUE value)
     }
     else {
         int descriptor = rb_io_descriptor(self);
-        io_nonblock_set(rb_io_descriptor(descriptor), get_fcntl_flags(descriptor), RTEST(value));
+        io_nonblock_set(descriptor, get_fcntl_flags(descriptor), RTEST(value));
     }
 
     return self;
