@@ -1,24 +1,29 @@
-name: build
+name: test
 
 on: [push, pull_request]
 
 jobs:
-  build:
+  ruby-versions:
+    if: ${{ startsWith(github.repository, 'ruby/') || github.event_name != 'schedule' }}
+    uses: ruby/actions/.github/workflows/ruby_versions.yml@master
+    with:
+      engine: cruby
+
+  test:
+    needs: ruby-versions
     name: build (${{ matrix.ruby }} / ${{ matrix.os }})
     strategy:
       matrix:
-        ruby: [ 3.0, 2.7, head, truffleruby, truffleruby-head, jruby, jruby-head ]
+        ruby: ${{ fromJson(needs.ruby-versions.outputs.versions) }}
         os: [ ubuntu-latest, macos-latest ]
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v3
-    - name: Set up Ruby
+    - name: Set up Ruby ${{ matrix.ruby }}
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby }}
     - name: Install dependencies
-      run: |
-        gem install bundler --no-document
-        bundle install
+      run: bundle install
     - name: Run test
       run: rake compile test
