@@ -7,7 +7,8 @@ jobs:
     if: ${{ startsWith(github.repository, 'ruby/') || github.event_name != 'schedule' }}
     uses: ruby/actions/.github/workflows/ruby_versions.yml@master
     with:
-      engine: cruby
+      engine: all
+      min_version: 2.7
 
   test:
     needs: ruby-versions
