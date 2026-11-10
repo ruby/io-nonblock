@@ -87,7 +87,7 @@ io_nonblock_set(int fd, int f, int nb)
 
 /*
  * call-seq:
- *   io.nonblock = boolean -> boolean
+ *   io.nonblock = boolean -> io
  *
  * Enables non-blocking mode on a stream when set to
  * +true+, and blocking mode when set to +false+.
